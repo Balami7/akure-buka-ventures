@@ -139,38 +139,6 @@ font-size:12px;
 cursor:pointer;
 }
 
-
-.error-msg {
-    color: #dc3545;
-    font-size: 13px;
-    margin-top: 4px;
-    margin-bottom: 12px;
-    display: block;
-    font-weight: 500;
-}
-
-.input-error {
-    border: 2px solid #dc3545 !important;
-}
-
-#modalStatus {
-    margin-top: 20px;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    text-align: center;
-    font-weight: bold;
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
 /* CART BUTTON */
 
 .preview{
@@ -303,6 +271,37 @@ cursor:pointer;
     font-size: 16px;
     cursor: pointer;
 }
+
+.error-msg {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    display: block;
+    font-weight: 500;
+}
+
+.input-error {
+    border: 2px solid #dc3545 !important;
+}
+
+#modalStatus {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* Star rating */
 .star-rating {
@@ -1481,64 +1480,53 @@ font-size:22px;
 
 <button class="menu-btn" onclick="toggleSection('events-section')">Program & Events</button>
 
-
 <div class="section" id="events-section">
-    
     <div class="category" onclick="toggleCategory('day-mon')">MONDAY <span>+</span></div>
     <div class="items" id="day-mon">
         <div class="item">
-            <div>Morning Jazz Session<br><span class="price">10:00 - 11:00</span></div>
-        </div>
-        <div class="item">
-            <div>Coffee Networking<br><span class="price">12:00 - 14:00</span></div>
+           <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-   
     <div class="category" onclick="toggleCategory('day-tue')">TUESDAY <span>+</span></div>
     <div class="items" id="day-tue">
         <div class="item">
-            <div>Business Brunch<br><span class="price">11:00 - 13:00</span></div>
+           <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-   
     <div class="category" onclick="toggleCategory('day-wed')">WEDNESDAY <span>+</span></div>
     <div class="items" id="day-wed">
         <div class="item">
-            <div>Wine Tasting<br><span class="price">18:00 - 20:00</span></div>
+            <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-    
     <div class="category" onclick="toggleCategory('day-thu')">THURSDAY <span>+</span></div>
     <div class="items" id="day-thu">
         <div class="item">
-            <div>Live Acoustic Set<br><span class="price">19:00 - 21:00</span></div>
+            <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-   
     <div class="category" onclick="toggleCategory('day-fri')">FRIDAY <span>+</span></div>
     <div class="items" id="day-fri">
         <div class="item">
-            <div>Karaoke Night<br><span class="price">20:00 - Late</span></div>
+            <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-   
     <div class="category" onclick="toggleCategory('day-sat')">SATURDAY <span>+</span></div>
     <div class="items" id="day-sat">
         <div class="item">
-            <div>Club Night<br><span class="price">22:00 - 04:00</span></div>
+            <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 
-   
     <div class="category" onclick="toggleCategory('day-sun')">SUNDAY <span>+</span></div>
     <div class="items" id="day-sun">
         <div class="item">
-            <div>Family Buffet<br><span class="price">12:00 - 16:00</span></div>
+            <div>Open<br><span class="price">08:00am - 12:00am</span></div>
         </div>
     </div>
 </div>
@@ -1644,11 +1632,63 @@ function closeCart() {
     document.getElementById("overlay").style.display = "none";
 }
 
-function pay(){
 
-alert("Proceed to payment of ₦"+total+" to the following account details:\nBank Name:Moniepoint Microfinance Bank\nAccount Name: Akure Buka Ventures\nAccount Number: 5203979318\nPlease show payment receipt to waiter.\nThank You for Your Patronage.");
+function pay() {
+    
+    if (itemsCount === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
 
+    
+    closeCart();
+
+  
+    const modalBody = document.getElementById("modalBody");
+    modalBody.innerHTML = `
+        <div style="text-align: center;">
+            <h3 style="margin-top: 0;">Payment Instructions</h3>
+            <p>Proceed to payment of <b>₦${total.toLocaleString()}</b> to the following account details:</p>
+            
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 8px; text-align: left; margin: 15px 0; border: 1px solid #ddd;">
+                <p style="margin: 5px 0;">Bank:<b> Moniepoint Microfinance Bank</b></p>
+                <p style="margin: 5px 0;">Name:<b> Akure Buka Ventures</b></p>
+                <p style="margin: 5px 0;">Account:<b> 5203979318</b></p>
+            </div>
+
+            <p style="font-size: 0.9em; color: #555;">Please show payment receipt to waiter.<br>Thank You for Your Patronage.</p>
+            
+            <button onclick="orderAgain()" style="margin-top: 20px; width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                Order Again
+            </button>
+        </div>
+    `;
+
+    
+    document.getElementById("actionModal").style.display = "flex";
 }
+
+
+
+function orderAgain() {
+    
+    cart = {};
+    total = 0;
+    itemsCount = 0;
+
+   
+    updateCart();
+
+    
+    closeModal();
+
+    window.location.href = "index2.html";
+}
+
+function closeModal() {
+    document.getElementById("actionModal").style.display = "none";
+}
+
 
 function openModal() {
     document.getElementById("actionModal").style.display = "flex";
@@ -1666,6 +1706,7 @@ function showComingSoon() {
     `;
     openModal();
 }
+
 
 function setError(id, message) {
     const inputEl = document.getElementById(id);
@@ -1740,9 +1781,9 @@ function showSongRequest(title) {
         <input type="text" id="songTitle" placeholder="e.g. Jerusalema">
         <label>Artist</label>
         <input type="text" id="songArtist" placeholder="e.g. Master KG">
-        <label>Min amount (₦5,000)</label>
-        <input type="number" id="songAmount" min="5000" placeholder="Min ₦5000">
-        <button class="submit-btn" onclick="addSongToCart('${title}')">Submit Request</button>
+        <label> Min. (₦5,000)<br> Note: This is a paid request.</label>
+        <input type="number" id="songAmount" min="5000" placeholder="Suggested min ₦5000">
+        <button class="submit-btn" onclick="addSongToCart('${title}')">submit to Request</button>
     `;
     openModal();
 }
@@ -1769,9 +1810,9 @@ function showShoutOut() {
     document.getElementById("modalBody").innerHTML = `
         <h3>Special Shout Out Request</h3>
         <label>Message / Shout Out</label>
-        <textarea id="shoutMessage" rows="4" placeholder=" "></textarea>
-        <label>Amount (₦)</label>
-        <input type="number" id="shoutAmount" min="5000" placeholder="Min ₦5000">
+        <textarea id="shoutMessage" rows="4" placeholder=""></textarea>
+        <label> Min. (₦5,000)<br> Note: This is a paid request.</label>
+        <input type="number" id="shoutAmount" min="5000" placeholder="Suggested min ₦5000">
         <button class="submit-btn" onclick="addShoutToCart()">Submit to Request</button>
     `;
     openModal();
@@ -1839,6 +1880,7 @@ function submitFeedback() {
 
     showSuccess("Thank you! Your feedback has been submitted.");
 }
+
 
 updateCart(); 
 
